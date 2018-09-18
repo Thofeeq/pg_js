@@ -32,5 +32,6 @@ client.connect((err) => {
     }
     //closing the db
     client.end();
+    
   });
 });  
