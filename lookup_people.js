@@ -23,10 +23,12 @@ client.connect((err) => {
       return console.error("error running query", err);
     }
     //looping through the records returned
+    var options = { year: 'numeric', month: 'numeric', day: 'numeric' };
     console.log("Searching...");
     console.log(`Found ${result.rows.length} person(s) by the name ${arg}`);
+    //formatting date to display yyyy-mm-dd  
     for(i = 0; i < result.rows.length; i++){
-      console.log(`${i+1}: ${result.rows[i].first_name} ${result.rows[i].last_name}, born '${result.rows[i].birthdate}'`); 
+      console.log(`${i+1}: ${result.rows[i].first_name} ${result.rows[i].last_name}, born '${new Date(result.rows[i].birthdate).toISOString().split('T')[0].toLocaleString("en-US",options).replace(/\//ig,"-")}'`); 
     }
     //closing the db
     client.end();
